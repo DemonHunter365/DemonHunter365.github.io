@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  FILE: index.html
+  PURPOSE: The homepage of Harshil Dookhy's e-portfolio.
+  This is a MULTI-PAGE site — this file is only the homepage.
+  Other pages (About, Skills, Semester 1, etc.) will be
+  separate .html files linked from the navigation bar.
+
+  STRUCTURE OVERVIEW:
+  1. <head>       — metadata, font imports, CSS link
+  2. <header>     — sticky navigation bar
+  3. <main>
+       ├── #hero        — big intro section with name + buttons
+       └── #cards       — the 3 clickable overview cards
+  4. <footer>     — contact info + copyright
+  5. <script>     — links to our external JS file
+  ============================================================
+-->
+<html lang="en">
+
+<head>
+  <!-- 
+    CHARSET & VIEWPORT
+    - charset="UTF-8"  → allows all characters (accents, symbols, etc.)
+    - viewport meta    → makes the site scale correctly on phones/tablets
+                         (without this, mobile browsers zoom way out)
+  -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Tab title shown in the browser tab -->
+  <title>Doorandharsingh Dookhy — Portfolio</title>
+
+  <!--
+    GOOGLE FONTS
+    We import two fonts:
+    - "Space Grotesk"  → used for headings (techy, modern feel)
+    - "Inter"          → used for body text (clean, readable)
+    The `display=swap` parameter means the browser shows fallback
+    text immediately, then swaps to our font when it loads (no blank flash).
+  -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500&display=swap"
+    rel="stylesheet" />
+
+  <!--
+    EXTERNAL CSS
+    All visual styling lives in style.css. Keeping it separate from HTML
+    makes both files shorter and easier to maintain.
+  -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- =====================================================
+    NAVIGATION BAR
+    - <header> wraps the whole top bar.
+    - class="scrolled" is toggled by JS when the user scrolls down,
+      which adds a semi-transparent background (see style.css + script.js).
+    - <nav> holds the logo on the left and menu links on the right.
+    - The hamburger button (#hamburger) is hidden on desktop;
+      on mobile it shows as 3 lines and opens the mobile menu.
+  ====================================================== -->
+  <header id="navbar">
+    <nav class="nav-container">
+
+      <!-- LOGO — clicking it returns to the homepage -->
+      <a href="index.html" class="logo">
+        <!-- The </> icon is written in HTML as text using a <span> -->
+        <span class="logo-icon">&lt;/&gt;</span>
+        <span class="logo-text">Dookhy<span class="logo-dot">.</span></span>
+      </a>
+
+      <!--
+        DESKTOP MENU
+        These links will navigate to other pages of the site.
+        The page currently active gets class="active" so it's highlighted.
+      -->
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="semester1.html">Semester 1</a></li>
+        <li><a href="semester2.html">Semester 2</a></li>
+        <li><a href="reflection.html">Reflection</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+
+      <!--
+        HAMBURGER BUTTON (mobile only)
+        Three <span> elements create the three horizontal lines.
+        JS toggles the class "open" on this button AND on #navLinks
+        to show/hide the mobile menu.
+      -->
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+    </nav>
+  </header>
+  <!-- END NAVIGATION BAR -->
+
+
+  <!-- =====================================================
+    MAIN CONTENT
+    Everything between <main> tags is the page body.
+  ====================================================== -->
+  <main>
+
+    <!-- ---------------------------------------------------
+      HERO SECTION
+      The "hero" is the first big section visitors see.
+      It contains:
+        • A small badge ("Available for collaboration")
+        • The name headline
+        • A subtitle
+        • A short paragraph
+        • Three call-to-action buttons
+
+      Each child element has class "fade-in" which starts
+      invisible and slides up on page load (see CSS keyframes).
+      The "delay-N" classes stagger the animations so elements
+      appear one after another instead of all at once.
+    ---------------------------------------------------- -->
+    <section id="hero">
+
+      <!-- 
+        ANIMATED BACKGROUND BLOBS
+        These are purely decorative <div>s positioned behind the text.
+        CSS animates them slowly drifting (see .blob keyframe in CSS).
+        They create the glowing red ambient light effect.
+      -->
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+
+      <!-- Hero content sits above the blobs (z-index) -->
+      <div class="hero-content">
+
+        <!-- BADGE — small pill-shaped label -->
+        <div class="badge fade-in delay-1">
+          <!-- ✦ is a decorative star character -->
+          <span class="badge-icon">✦</span>
+          Available for collaboration
+        </div>
+
+        <!--
+          NAME HEADING
+          - "Harshil" is white
+          - "Dookhy" is red (class="highlight")
+          This matches the design in the screenshot.
+        -->
+        <h1 class="hero-title fade-in delay-2">
+          Doorandharsingh <span class="highlight">Dookhy</span>
+        </h1>
+
+        <!-- SUBTITLE / ROLE -->
+        <p class="hero-subtitle fade-in delay-3">
+          Computer Science Student &amp; Aspiring Software Developer
+        </p>
+
+        <!-- SHORT BIO PARAGRAPH -->
+        <p class="hero-bio fade-in delay-4">
+          I'm a BSc Computer Science student at the University of Mauritius,
+          passionate about building clean, useful software — from web applications
+          and Python tools to low-level assembly programs. This portfolio captures
+          my journey through Semester 1 and Semester 2.
+        </p>
+
+        <!--
+          CALL-TO-ACTION BUTTONS
+          Three buttons side by side (wrap on small screens).
+          - "btn-primary"   → red filled button
+          - "btn-secondary" → dark outlined button
+          They link to other pages of the site.
+        -->
+        <div class="hero-buttons fade-in delay-5">
+          <a href="semester1.html" class="btn btn-primary">
+            View Semester 1 Projects <span class="btn-arrow">→</span>
+          </a>
+          <a href="semester2.html" class="btn btn-secondary">
+            View Semester 2 Projects <span class="btn-arrow">→</span>
+          </a>
+          <a href="contact.html" class="btn btn-secondary">
+            <!-- ✉ is the envelope/email icon character -->
+            <span class="btn-icon">✉</span> Contact Me
+          </a>
+        </div>
+
+      </div>
+      <!-- END .hero-content -->
+
+    </section>
+    <!-- END #hero -->
+
+
+    <!-- ---------------------------------------------------
+      CARDS SECTION
+      Three cards displayed in a row (grid on desktop,
+      stacked on mobile). Each card:
+        • Has a red </> icon
+        • Has a title
+        • Has a short description
+        • Has an "Explore →" link
+
+      Cards have a "reveal" class. JS adds class "visible"
+      when they scroll into view, triggering a fade-in
+      animation (Intersection Observer pattern — see script.js).
+    ---------------------------------------------------- -->
+    <section id="cards">
+      <div class="cards-grid">
+
+        <!-- CARD 1: Semester 1 -->
+        <article class="card reveal">
+          <!-- Icon badge (the </> symbol) -->
+          <div class="card-icon">
+            <span>&lt;/&gt;</span>
+          </div>
+          <h2 class="card-title">Semester 1</h2>
+          <p class="card-desc">
+            Foundation of Technical Skills — web, Python, MARIE assembly.
+          </p>
+          <!-- Internal link to the Semester 1 page -->
+          <a href="semester1.html" class="card-link">Explore →</a>
+        </article>
+
+        <!-- CARD 2: Semester 2 -->
+        <article class="card reveal">
+          <div class="card-icon">
+            <span>&lt;/&gt;</span>
+          </div>
+          <h2 class="card-title">Semester 2</h2>
+          <p class="card-desc">
+            Communication, teamwork, and professional simulations.
+          </p>
+          <a href="semester2.html" class="card-link">Explore →</a>
+        </article>
+
+        <!-- CARD 3: Reflection -->
+        <article class="card reveal">
+          <div class="card-icon">
+            <span>&lt;/&gt;</span>
+          </div>
+          <h2 class="card-title">Reflection</h2>
+          <p class="card-desc">
+            Lessons learned, growth, and what comes next.
+          </p>
+          <a href="reflection.html" class="card-link">Explore →</a>
+        </article>
+
+      </div>
+      <!-- END .cards-grid -->
+    </section>
+    <!-- END #cards -->
+
+  </main>
+  <!-- END <main> -->
+
+
+  <!-- =====================================================
+    FOOTER
+    Displayed at the bottom of every page.
+    Three columns:
+      1. Branding (name + tagline)
+      2. Contact details (email, phone, location)
+      3. Copyright notice
+    On mobile these stack vertically (CSS flex-wrap).
+  ====================================================== -->
+  <footer id="footer">
+    <div class="footer-container">
+
+      <!-- Column 1: Branding -->
+      <div class="footer-brand">
+        <p class="footer-logo">Doorandharsingh<span class="logo-dot">.</span></p>
+        <p class="footer-tagline">Computer Science Student &amp; Aspiring Software Developer.</p>
+      </div>
+
+      <!-- Column 2: Contact info -->
+      <div class="footer-contact">
+        <!-- Each item is an icon + text -->
+        <p><span class="footer-icon">✉</span> harshdookhy9@gmail.com/p>
+        <p><span class="footer-icon">📞</span> 57823966</p>
+        <p><span class="footer-icon">📍</span> Mauritius</p>
+      </div>
+
+      <!-- Column 3: Copyright -->
+      <div class="footer-copy">
+        <p>© 2026 Doorandharsingh Dookhy.</p>
+        <p>Built with passion &amp; code.</p>
+      </div>
+
+    </div>
+  </footer>
+  <!-- END FOOTER -->
+
+
+  <!--
+    EXTERNAL JAVASCRIPT
+    Placed at the BOTTOM of <body> so the HTML loads first.
+    The browser parses top-to-bottom; putting script here means
+    all elements already exist when JS runs (no need for DOMContentLoaded tricks).
+  -->
+  <script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  FILE: skills.html
+  PAGE: Skills & Achievements
+  ============================================================
+
+  WHAT IS ON THIS PAGE:
+  1. Navbar
+  2. Page Header   — label "WHAT I BRING", h1, subtitle
+  3. Skills Grid   — 2-column layout:
+       LEFT:  Technical Skills card with animated progress bars
+       RIGHT: Three smaller cards (Tools, Soft Skills, Certification)
+  4. Footer
+
+  NEW CSS CLASSES USED (added to style.css):
+  - .skills-layout      → 2-column grid (big left, stacked right)
+  - .skills-right       → right column flex container
+  - .skill-card         → individual card container
+  - .skill-card-header  → icon + title row
+  - .skill-card-note    → small grey note under title
+  - .skill-item         → one skill row (name + bar)
+  - .skill-header       → flex row: name left, percent right
+  - .skill-name         → skill label (e.g. "HTML")
+  - .skill-percent      → percentage label (e.g. "65%")
+  - .skill-bar          → the grey track
+  - .skill-fill         → the red fill that animates
+  - .tags               → flex wrap container for tag chips
+  - .tag                → individual pill-shaped tag chip
+  - .cert-title         → certification name
+  - .cert-sub           → institution name under cert
+
+  NEW JS LOGIC (added to script.js):
+  - Intersection Observer watches .skill-fill elements
+  - When visible, adds class "animated" which triggers
+    the CSS transition: width animates from 0% to --target-width
+  ============================================================
+-->
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skills — Doorandharsingh Dookhy</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- NAVBAR — "Skills" link is active -->
+  <header id="navbar">
+    <nav class="nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">&lt;/&gt;</span>
+        <span class="logo-text">Doorandharsingh<span class="logo-dot">.</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="skills.html" class="active">Skills</a></li>  <!-- ← active here -->
+        <li><a href="semester1.html">Semester 1</a></li>
+        <li><a href="semester2.html">Semester 2</a></li>
+        <li><a href="reflection.html">Reflection</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+
+  <main class="page-content">
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+      <p class="page-label fade-in delay-1">What I Bring</p>
+      <h1 class="page-title fade-in delay-2">Skills &amp; Achievements</h1>
+      <p class="page-subtitle fade-in delay-3">A growing toolkit of technical and human skills.</p>
+    </section>
+
+
+    <!-- ---------------------------------------------------
+      SKILLS LAYOUT — 2-column grid
+      Left column: Technical Skills card (takes up more space)
+      Right column: 3 smaller cards stacked vertically
+    ---------------------------------------------------- -->
+    <section class="skills-section">
+      <div class="skills-layout">
+
+        <!-- =======================================
+          LEFT COLUMN — Technical Skills
+          Contains 7 animated progress bars.
+
+          HOW THE PROGRESS BAR ANIMATION WORKS:
+          1. The .skill-fill div starts at width: 0%
+          2. It has a CSS custom property --target-width: 65%
+             set directly in the HTML via style="..."
+          3. When JS adds class "animated", CSS transitions
+             width from 0% to var(--target-width)
+          4. This creates the filling animation
+        ======================================= -->
+        <div class="skill-card reveal">
+
+          <!-- Card header: icon + title -->
+          <div class="skill-card-header">
+            <span class="skill-card-icon">⚙️</span>
+            <h2 class="skill-card-title">Technical Skills</h2>
+          </div>
+
+          <!-- Small note explaining the percentages -->
+          <p class="skill-card-note">
+            Self-assessed student level — still learning and improving.
+          </p>
+
+          <!--
+            SKILL ITEM — repeat this block for each skill.
+            Change the skill name, the % label, and --target-width.
+            All three must match!
+          -->
+
+          <!-- HTML: 65% -->
+          <div class="skill-item">
+            <div class="skill-header">
+              <span class="skill-name">HTML</span>
+              <span class="skill-percent">65%</span>
+            </div>
+            <div class="skill-bar">
+              <!--
+                style="--target-width: 65%"
+                This sets a CSS custom property DIRECTLY on the element.
+                CSS reads it as: width should animate to 65%.
+                The class "skill-fill" is what JS watches for.
+              -->
+              <div class="skill-fill" style="--target-width: 65%"></div>
+            </div>
+          </div>
+
+          <!-- CSS: 60% -->
+          <div class="skill-item">
+            <div class="skill-header">
+              <span class="skill-name">CSS</span>
+              <span class="skill-percent">60%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-fill" style="--target-width: 60%"></div>
+            </div>
+          </div>
+
+          <!-- JavaScript: 45% -->
+          <div class="skill-item">
+            <div class="skill-header">
+              <span class="skill-name">JavaScript</span>
+              <span class="skill-percent">45%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-fill" style="--target-width: 45%"></div>
+            </div>
+          </div>
+
+          <!-- Python: 55% -->
+          <div class="skill-item">
+            <div class="skill-header">
+              <span class="skill-name">Python</span>
+              <span class="skill-percent">55%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-fill" style="--target-width: 55%"></div>
+            </div>
+          </div>
+
+          <!-- SQL: 45% -->
+          <div class="skill-item">
+            <div class="skill-header">
+              <span class="skill-name">SQL</span>
+              <span class="skill-percent">45%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-fill" style="--target-width: 45%"></div>
+            </div>
+          </div>
+
+          <!-- MARIE Assembly: 40% -->
+          <div class="skill-item">
+            <div class="skill-header">
+              <span class="skill-name">MARIE Assembly</span>
+              <span class="skill-percent">40%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-fill" style="--target-width: 40%"></div>
+            </div>
+          </div>
+
+          <!-- Linux: 40% -->
+          <div class="skill-item">
+            <div class="skill-header">
+              <span class="skill-name">Linux</span>
+              <span class="skill-percent">40%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-fill" style="--target-width: 40%"></div>
+            </div>
+          </div>
+
+        </div>
+        <!-- END LEFT COLUMN -->
+
+
+        <!-- =======================================
+          RIGHT COLUMN — 3 stacked smaller cards
+          .skills-right uses flex-direction: column
+          so the cards stack vertically.
+        ======================================= -->
+        <div class="skills-right">
+
+          <!-- RIGHT CARD 1: Tools -->
+          <div class="skill-card reveal">
+            <div class="skill-card-header">
+              <span class="skill-card-icon">🔧</span>
+              <h2 class="skill-card-title">Tools</h2>
+            </div>
+
+            <!--
+              TAGS — pill-shaped chips for listing items.
+              .tags is the flex container (wraps automatically).
+              .tag is each individual chip.
+              Add or remove <span class="tag"> items as needed.
+            -->
+            <div class="tags">
+              <span class="tag">VS Code</span>
+              <span class="tag">Microsoft Office</span>
+              <span class="tag">Kali Linux</span>
+            </div>
+          </div>
+
+          <!-- RIGHT CARD 2: Soft Skills -->
+          <div class="skill-card reveal">
+            <div class="skill-card-header">
+              <span class="skill-card-icon">🤝</span>
+              <h2 class="skill-card-title">Soft Skills</h2>
+            </div>
+            <div class="tags">
+              <span class="tag">Teamwork</span>
+              <span class="tag">Problem Solving</span>
+              <span class="tag">Adaptability</span>
+              <span class="tag">Time Management</span>
+            </div>
+          </div>
+
+          <!-- RIGHT CARD 3: Certification -->
+          <div class="skill-card reveal">
+            <div class="skill-card-header">
+              <span class="skill-card-icon">🏅</span>
+              <h2 class="skill-card-title">Certification</h2>
+            </div>
+            <!--
+              No tags here — just text content.
+              .cert-title for the certificate name.
+              .cert-sub for the issuing institution.
+            -->
+            <p class="cert-title">IoT and Robotics</p>
+            <p class="cert-sub">JCI Institution</p>
+          </div>
+
+        </div>
+        <!-- END RIGHT COLUMN -->
+
+      </div>
+    </section>
+    <!-- END SKILLS LAYOUT -->
+
+
+  </main>
+
+
+  <!-- FOOTER — identical across all pages -->
+  <footer id="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <p class="footer-logo">Harshil<span class="logo-dot">.</span></p>
+        <p class="footer-tagline">Computer Science Student &amp; Aspiring Software Developer.</p>
+      </div>
+      <div class="footer-contact">
+        <p><span class="footer-icon">✉</span> harshdookhy9@gmail.com</p>
+        <p><span class="footer-icon">📞</span> 57823966</p>
+        <p><span class="footer-icon">📍</span> Mauritius</p>
+      </div>
+      <div class="footer-copy">
+        <p>© 2026 Doorandharsingh Dookhy.</p>
+        <p>Built with passion &amp; code.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+
+</body>
+</html>

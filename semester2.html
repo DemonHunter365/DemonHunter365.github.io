@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  FILE: semester2.html
+  PAGE: Semester 2 — Going Deeper
+  ============================================================
+
+  WHAT IS ON THIS PAGE:
+  1. Navbar
+  2. Page Header   — label "SEMESTER 2", heading, subtitle
+  3. Projects Grid — 5 project cards in a responsive grid
+  4. Footer
+
+  THE 5 PROJECTS:
+  - CRM Role Play / Interview Simulation
+  - Team Building Activities
+  - Online Grocery System Application
+  - Monte Carlo Queuing Analysis of a Supermarket
+  - Simultaneous Equations Using MARIE Assembly
+
+  NOTE: Semester 2 has 5 cards, not 4.
+  The grid still uses 2 columns — so the last card sits alone
+  on the bottom row. This is fine — CSS grid handles it automatically.
+  If you want it centred, see the .project-card--wide class below.
+
+  All CSS classes are THE SAME as semester1.html.
+  This is the power of reusable CSS — no new styles needed!
+  ============================================================
+-->
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Semester 2 — Doorandharsingh Dookhy</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- NAVBAR — "Semester 2" link is active -->
+  <header id="navbar">
+    <nav class="nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">&lt;/&gt;</span>
+        <span class="logo-text">Harshil<span class="logo-dot">.</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="semester1.html">Semester 1</a></li>
+        <li><a href="semester2.html" class="active">Semester 2</a></li>  <!-- ← active here -->
+        <li><a href="reflection.html">Reflection</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+
+  <main class="page-content">
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+      <p class="page-label fade-in delay-1">Semester 2</p>
+      <h1 class="page-title fade-in delay-2">Going Deeper</h1>
+      <p class="page-subtitle fade-in delay-3">
+        Bigger projects, sharper thinking — combining real applications, simulations and
+        low-level systems work with stronger teamwork and professional skills.
+      </p>
+    </section>
+
+
+    <!-- ---------------------------------------------------
+      PROJECTS GRID
+      Same .projects-grid class as semester1.html.
+      5 cards in a 2-column grid = 2 rows of 2, then 1 card on last row.
+      The last card (Monte Carlo) spans both columns so it fills the row.
+    ---------------------------------------------------- -->
+    <section class="projects-section">
+      <div class="projects-grid">
+
+
+        <!-- PROJECT 1: CRM Role Play -->
+        <article class="project-card reveal">
+          <div class="project-card-header">
+            <span class="project-icon">🎭</span>
+            <h2 class="project-title">CRM Role Play / Interview Simulation</h2>
+          </div>
+          <p class="project-desc">
+            Took part in a customer relationship management role play and a simulated
+            interview, practising professional dialogue, handling client expectations,
+            and presenting myself as a candidate.
+          </p>
+          <p class="project-section-label">Technologies</p>
+          <div class="tags">
+            <span class="tag">Role Play</span>
+            <span class="tag">Business Communication</span>
+          </div>
+          <p class="project-section-label">Skills Gained</p>
+          <div class="tags">
+            <span class="tag">Professionalism</span>
+            <span class="tag">Active listening</span>
+            <span class="tag">Confidence under pressure</span>
+          </div>
+          <div class="demo-section">
+            <p class="project-section-label">Vew Image</p>
+            <a href="CRM.jpeg" class="demo-link demo-link-btn">
+              📄 View Image
+            </a>
+          </div>
+        </article>
+
+
+        <!-- PROJECT 2: Team Building -->
+        <article class="project-card reveal">
+          <div class="project-card-header">
+            <span class="project-icon">👥</span>
+            <h2 class="project-title">Team Building Activities</h2>
+          </div>
+          <p class="project-desc">
+            Collaborated on group exercises designed to build trust, share leadership,
+            and solve problems together — translating individual strengths into
+            team outcomes.
+          </p>
+          <p class="project-section-label">Technologies</p>
+          <div class="tags">
+            <span class="tag">Group Work</span>
+            <span class="tag">Collaboration Tools</span>
+          </div>
+          <p class="project-section-label">Skills Gained</p>
+          <div class="tags">
+            <span class="tag">Teamwork</span>
+            <span class="tag">Leadership</span>
+            <span class="tag">Adaptability</span>
+          </div>
+        </article>
+
+
+        <!-- PROJECT 3: Online Grocery System -->
+        <article class="project-card reveal">
+          <div class="project-card-header">
+            <span class="project-icon">🛒</span>
+            <h2 class="project-title">Online Grocery System Application Database</h2>
+          </div>
+          <p class="project-desc">
+            A full grocery ordering web application with product browsing, cart
+            management, and checkout flow. Designed with a clean UI and structured
+            back-end logic.
+          </p>
+          <p class="project-section-label">Technologies</p>
+          <div class="tags">
+            
+            <span class="tag">SQL</span>
+          </div>
+          <p class="project-section-label">Skills Gained</p>
+          <div class="tags">
+            <span class="tag">Front-end design</span>
+            <span class="tag">Database modelling</span>
+            <span class="tag">User-flow logic</span>
+          </div>
+        </article>
+
+
+        <!-- PROJECT 4: MARIE Simultaneous Equations -->
+        <article class="project-card reveal">
+          <div class="project-card-header">
+            <span class="project-icon">💾</span>
+            <h2 class="project-title">Simultaneous Equations Using MARIE Assembly</h2>
+          </div>
+          <p class="project-desc">
+            Implemented a MARIE assembly program to solve simultaneous equations —
+            combining mathematical reasoning with low-level instruction sequencing
+            and memory handling.
+          </p>
+          <p class="project-section-label">Technologies</p>
+          <div class="tags">
+            <span class="tag">MARIE Assembly</span>
+            <span class="tag">Linear Algebra</span>
+          </div>
+          <p class="project-section-label">Skills Gained</p>
+          <div class="tags">
+            <span class="tag">Low-level programming</span>
+            <span class="tag">Algorithmic thinking</span>
+            <span class="tag">Mathematical modelling</span>
+          </div>
+        </article>
+
+
+        <!-- PROJECT 5: Monte Carlo Simulation
+             This is the 5th card in a 2-column grid, so it would sit
+             alone in the bottom-left. We give it class "project-card--wide"
+             which makes it span both columns — filling the full row.
+        -->
+        <article class="project-card project-card--wide reveal">
+          <div class="project-card-header">
+            <span class="project-icon">📊</span>
+            <h2 class="project-title">Monte Carlo Queuing Analysis of a Supermarket</h2>
+          </div>
+          <p class="project-desc">
+            Used Monte Carlo simulation to model customer arrivals and queue behaviour
+            in a supermarket, analysing waiting times and service efficiency through
+            randomised scenarios.
+          </p>
+          <p class="project-section-label">Technologies</p>
+          <div class="tags">
+            <span class="tag">Excel</span>
+            <span class="tag">Monte Carlo Simulation</span>
+            <span class="tag">Statistics</span>
+          </div>
+          <p class="project-section-label">Skills Gained</p>
+          <div class="tags">
+            <span class="tag">Simulation</span>
+            <span class="tag">Data analysis</span>
+            <span class="tag">Probabilistic thinking</span>
+          </div>
+
+          <!--
+            Demo link — red filled button style.
+            Replace href="#" with your actual PDF path.
+            e.g. href="files/monte-carlo-report.pdf"
+          -->
+          <div class="demo-section">
+            <p class="project-section-label">Demo</p>
+            <a href="coa (6) (1).pdf" class="demo-link demo-link-btn">
+              📄 View Report (PDF)
+            </a>
+          </div>
+
+        </article>
+
+
+      </div>
+    </section>
+    <!-- END PROJECTS GRID -->
+
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <p class="footer-logo">Harshil<span class="logo-dot">.</span></p>
+        <p class="footer-tagline">Computer Science Student &amp; Aspiring Software Developer.</p>
+      </div>
+      <div class="footer-contact">
+        <p><span class="footer-icon">✉</span> harshdookhy9@gmail.com</p>
+        <p><span class="footer-icon">📞</span> 57823966</p>
+        <p><span class="footer-icon">📍</span> Mauritius</p>
+      </div>
+      <div class="footer-copy">
+        <p>© 2026 Doorandharsingh Dookhy.</p>
+        <p>Built with passion &amp; code.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+
+</body>
+</html>

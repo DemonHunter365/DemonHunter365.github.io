@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!--
+    TITLE: Change this on every page.
+    Format: "PageName — Harshil Dookhy"
+    This shows in the browser tab.
+  -->
+  <title>About — Doorandhrsingh Dookhy</title>
+
+ 
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500&display=swap"
+    rel="stylesheet" />
+
+  <!-- Same shared CSS file — all navbar/footer styles already exist here -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!--
+    NAVIGATION BAR
+    IDENTICAL to index.html — only ONE thing changes:
+    The link for "About" gets class="active" to highlight it red.
+    Every other page follows this same pattern.
+  -->
+  <header id="navbar">
+    <nav class="nav-container">
+
+      <a href="index.html" class="logo">
+        <span class="logo-icon">&lt;/&gt;</span>
+        <span class="logo-text">Doorandharsingh<span class="logo-dot">.</span></span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html" class="active">About</a></li>  <!-- ← "active" is HERE on this page -->
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="semester1.html">Semester 1</a></li>
+        <li><a href="semester2.html">Semester 2</a></li>
+        <li><a href="reflection.html">Reflection</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+    </nav>
+  </header>
+
+
+  <!-- =====================================================
+    MAIN CONTENT
+    class="page-content" adds padding-top: 70px so nothing
+    hides behind the fixed navbar.
+  ====================================================== -->
+  <main class="page-content">
+
+
+    <!-- ---------------------------------------------------
+      PAGE HEADER SECTION
+      Every inner page (About, Skills, etc.) starts with this
+      same block: a small red label, a big title, and a subtitle.
+
+      .fade-in + .delay-N = the staggered entrance animation
+      (same system used on the homepage hero)
+    ---------------------------------------------------- -->
+    <section class="page-header">
+
+      <!--
+        PAGE LABEL — small uppercase red text above the heading.
+        Tells the user which section they're in.
+      -->
+      <p class="page-label fade-in delay-1">About Me</p>
+
+      <!--
+        PAGE TITLE — the main heading for this page.
+        Uses clamp() in CSS so it scales with screen size.
+      -->
+      <h1 class="page-title fade-in delay-2">
+        A curious mind, building things that work.
+      </h1>
+
+      <!-- SUBTITLE — a single sentence under the heading -->
+      <p class="page-subtitle fade-in delay-3">
+        Get to know the person behind the code.
+      </p>
+
+    </section>
+
+
+    <!-- 
+      INFO CARDS — 3 horizontal cards
+      A CSS grid (3 equal columns) holds these cards.
+      Each card has an icon, a title, and a description.
+
+      class="reveal" makes each card animate in when
+      scrolled into view (the Intersection Observer in script.js
+      watches for this class and adds "visible").
+     -->
+    <section class="info-cards-section">
+      <div class="info-cards">
+
+        <!-- CARD 1: Education -->
+        <div class="info-card reveal">
+          <!--
+            The icon is just an emoji inside a <div>.
+            Emojis work great as icons — no image file needed.
+            The CSS colours the icon container red.
+          -->
+          <div class="info-card-icon">🎓</div>
+          <h3 class="info-card-title">Education</h3>
+          <p class="info-card-desc">
+            BSc Computer Science<br>
+            <!--
+              <br> forces a line break WITHIN the paragraph.
+              Use sparingly — usually a new <p> is better.
+            -->
+            University of Mauritius<br>
+            Focused on programming fundamentals,
+            systems, and software engineering.
+          </p>
+        </div>
+
+        <!-- CARD 2: Career Goals -->
+        <div class="info-card reveal">
+          <div class="info-card-icon">🎯</div>
+          <h3 class="info-card-title">Career Goals</h3>
+          <p class="info-card-desc">
+            Become a versatile software developer working
+            on impactful applications — combining strong
+            technical skills with clear communication and
+            teamwork.
+          </p>
+        </div>
+
+        <!-- CARD 3: Passion -->
+        <div class="info-card reveal">
+          <div class="info-card-icon">❤️</div>
+          <h3 class="info-card-title">Passion</h3>
+          <p class="info-card-desc">
+            I love turning ideas into working software. From
+            debugging tricky logic to crafting interfaces,
+            every project teaches me something new.
+          </p>
+        </div>
+
+      </div>
+    </section>
+    <!-- END INFO CARDS -->
+
+
+    <!-- ---------------------------------------------------
+      BIO SECTION — "My background"
+      A centred column of text, like a written biography.
+      Uses class="reveal" on the whole section so it
+      animates in when scrolled to.
+    ---------------------------------------------------- -->
+    <section class="about-bio reveal">
+
+      <h2 class="about-bio-heading">My background</h2>
+
+      <!--
+        Each paragraph is a separate <p> tag.
+        NEVER put line breaks inside one <p> to fake paragraphs —
+        use separate <p> tags. Each one gets its own margin-bottom in CSS.
+      -->
+      <p>
+        I'm Doorandharsingh Dookhy, based in Mauritius and currently pursuing a
+        Bachelor's degree in Computer Science at the University of Mauritius.
+        My journey into tech started with curiosity and apart small ideas
+        to understand how they really work as well as grew into a genuine passion
+        for building software.
+      </p>
+
+      <p>
+        Across my first year, I've explored the full stack of foundational
+        skills;front-end development with HTML, CSS and JavaScript; problem
+        solving with Python; data with SQL; and even low-level computing with
+        MARIE Assembly. Every project I take on is an opportunity to deepen
+        my craft.
+      </p>
+
+      <p>
+        Beyond code, I'm equally invested in the human side of technology 
+        communication, collaboration, and continuous learning. I believe the
+        best developers are the ones who can both build and explain.
+      </p>
+
+    </section>
+    <!-- END BIO SECTION -->
+
+
+  </main>
+  <!-- END MAIN -->
+
+
+  <!-- 
+    FOOTER — identical across all pages
+-->
+  <footer id="footer">
+    <div class="footer-container">
+
+      <div class="footer-brand">
+        <p class="footer-logo">Doorandharsingh<span class="logo-dot">.</span></p>
+        <p class="footer-tagline">Computer Science Student &amp; Aspiring Software Developer.</p>
+      </div>
+
+      <div class="footer-contact">
+        <p><span class="footer-icon">✉</span> harshdookhy9@gmail.com</p>
+        <p><span class="footer-icon">📞</span> 57823966</p>
+        <p><span class="footer-icon">📍</span> Mauritius</p>
+      </div>
+
+      <div class="footer-copy">
+        <p>© 2026 Doorandharsingh Dookhy.</p>
+        <p>Built with passion &amp; code.</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Same script.js handles navbar scroll + hamburger + scroll reveal on ALL pages -->
+  <script src="script.js"></script>
+
+</body>
+</html>

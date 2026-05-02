@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Semester 1 — Doorandharsingh Dookhy</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- NAVBAR — "Semester 1" link is active -->
+  <header id="navbar">
+    <nav class="nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">&lt;/&gt;</span>
+        <span class="logo-text">Doorandharsingh<span class="logo-dot">.</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="semester1.html" class="active">Semester 1</a></li>  <!-- ← active here -->
+        <li><a href="semester2.html">Semester 2</a></li>
+        <li><a href="reflection.html">Reflection</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+
+  <main class="page-content">
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+      <p class="page-label fade-in delay-1">Semester 1</p>
+      <h1 class="page-title fade-in delay-2">Building the Basics</h1>
+      <p class="page-subtitle fade-in delay-3">
+        My first steps into programming, problem-solving and teamwork — through hands-on
+        projects that mixed code, math and collaboration.
+      </p>
+    </section>
+
+
+    <!-- ---------------------------------------------------
+      PROJECTS GRID
+      A 2-column CSS grid holds all 4 project cards.
+      Each card is an <article> — semantically correct for
+      self-contained pieces of content like project entries.
+
+      class="reveal" on each card makes it animate in
+      when scrolled into view (Intersection Observer in script.js).
+    ---------------------------------------------------- -->
+    <section class="projects-section">
+      <div class="projects-grid">
+
+
+        <!-- =======================================
+          PROJECT CARD 1: Scavenger Hunt
+          A teamwork activity — no code file to download.
+        ======================================= -->
+        <article class="project-card reveal">
+
+          <!-- CARD HEADER: icon + title side by side -->
+          <div class="project-card-header">
+            <span class="project-icon">🗺️</span>
+            <h2 class="project-title">Scavenger Hunt</h2>
+          </div>
+
+          <!-- DESCRIPTION paragraph -->
+          <p class="project-desc">
+            A team-based scavenger hunt activity that built collaboration,
+            problem-solving and quick thinking through a series of clues
+            and challenges around campus.
+          </p>
+
+          <!--
+            TECHNOLOGIES SECTION
+            .project-section-label = the small red uppercase heading
+            .tags = the flex container wrapping the tag chips
+            .tag = each individual chip
+          -->
+          <p class="project-section-label">Technologies</p>
+          <div class="tags">
+            <span class="tag">Teamwork</span>
+            <span class="tag">Problem Solving</span>
+          </div>
+
+          <!-- SKILLS GAINED SECTION — same pattern -->
+          <p class="project-section-label">Skills Gained</p>
+          <div class="tags">
+            <span class="tag">Collaboration</span>
+            <span class="tag">Critical thinking</span>
+            <span class="tag">Time management</span>
+          </div>
+          <div class="demo-section">
+            <p class="project-section-label">View Folder</p>
+            <a href="Jaadu_2025.pdf" class="demo-link-btn">
+              ⬇ Download PDF
+            </a>
+          </div>
+
+          <!--
+            No DEMO section for this card — it was an activity,
+            not a file-based project. Just leave it out.
+          -->
+
+        </article>
+
+
+        <!-- =======================================
+          PROJECT CARD 2: Business Plan
+          A written/research project — no code.
+        ======================================= -->
+        <article class="project-card reveal">
+
+          <div class="project-card-header">
+            <span class="project-icon">📋</span>
+            <h2 class="project-title">Business Plan</h2>
+          </div>
+
+          <p class="project-desc">
+            Designed a structured business plan covering market analysis,
+            value proposition, operations and financial projections —
+            translating an idea into a viable, presentable model.
+          </p>
+
+          <p class="project-section-label">Technologies</p>
+          <div class="tags">
+            <span class="tag">Research</span>
+            <span class="tag">Microsoft Word</span>
+            <span class="tag">PowerPoint</span>
+          </div>
+
+          <p class="project-section-label">Skills Gained</p>
+          <div class="tags">
+            <span class="tag">Strategic thinking</span>
+            <span class="tag">Writing</span>
+            <span class="tag">Presentation</span>
+          </div>
+           <div class="demo-section">
+            <p class="project-section-label">View Folder</p>
+            <a href="Business_Plan_Assignment(Pixel_Builders).pdf" class="demo-link-btn">
+              ⬇ Download PDF
+            </a>
+          </div>
+          
+
+        </article>
+
+
+        <!-- =======================================
+          PROJECT CARD 3: Linear Algebra Spreadsheet
+          Has a demo download link.
+        ======================================= -->
+        <article class="project-card reveal">
+
+          <div class="project-card-header">
+            <span class="project-icon">∑</span>
+            <h2 class="project-title">Linear Algebra Equations in Spreadsheet</h2>
+          </div>
+
+          <p class="project-desc">
+            Solved systems of linear equations using Microsoft Excel —
+            applying matrix operations, formulas and spreadsheet logic
+            to model and compute solutions.
+          </p>
+
+          <p class="project-section-label">Technologies</p>
+          <div class="tags">
+            <span class="tag">Microsoft Excel</span>
+            <span class="tag">Linear Algebra</span>
+          </div>
+
+          <p class="project-section-label">Skills Gained</p>
+          <div class="tags">
+            <span class="tag">Mathematical modelling</span>
+            <span class="tag">Spreadsheet formulas</span>
+            <span class="tag">Analytical thinking</span>
+          </div>
+
+          <!--
+            DEMO SECTION — only shown when there's a file to link.
+            href="#" is a placeholder — replace with the actual file path.
+            e.g. href="files/linear-algebra.xlsx"
+          -->
+          <div class="demo-section">
+            <p class="project-section-label">Demo</p>
+            <a href="Linear_Algebra_Matrices_Assignment (1).xlsx" class="demo-link-btn">
+              ⬇ Download Spreadsheet
+            </a>
+          </div>
+
+        </article>
+
+
+        
+
+
+      </div>
+    </section>
+    <!-- END PROJECTS GRID -->
+
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <p class="footer-logo">Doorandharsingh<span class="logo-dot">.</span></p>
+        <p class="footer-tagline">Computer Science Student &amp; Aspiring Software Developer.</p>
+      </div>
+      <div class="footer-contact">
+        <p><span class="footer-icon">✉</span>harshdookhy9@gmail.com</p>
+        <p><span class="footer-icon">📞</span> 57823966</p>
+        <p><span class="footer-icon">📍</span> Mauritius</p>
+      </div>
+      <div class="footer-copy">
+        <p>© 2026 Doorandharsingh Dookhy.</p>
+        <p>Built with passion &amp; code.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Doorandharsingh Dookhy</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- NAVBAR — "Contact" link is active -->
+  <header id="navbar">
+    <nav class="nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">&lt;/&gt;</span>
+        <span class="logo-text">Doorandharsingh<span class="logo-dot">.</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="semester1.html">Semester 1</a></li>
+        <li><a href="semester2.html">Semester 2</a></li>
+        <li><a href="reflection.html">Reflection</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>  <!-- ← active here -->
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+
+  <main class="page-content">
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+      <p class="page-label fade-in delay-1">Get In Touch</p>
+      <h1 class="page-title fade-in delay-2">Let's talk.</h1>
+      <p class="page-subtitle fade-in delay-3">
+        Open to opportunities, collaborations, and a good conversation about code.
+      </p>
+    </section>
+
+
+    <!-- ---------------------------------------------------
+      CONTACT LAYOUT — 2 columns
+      Left:  contact info cards
+      Right: the form
+
+      Both sides use class="reveal" to animate in on scroll.
+    ---------------------------------------------------- -->
+    <section class="contact-section">
+      <div class="contact-layout">
+
+
+        <!-- =======================================
+          LEFT COLUMN — Contact Info Cards
+          Three cards: Email, Phone, Location.
+          Each card has an icon, a small label, and the value.
+        ======================================= -->
+        <div class="contact-info-col reveal">
+
+          <!-- EMAIL CARD -->
+          <div class="contact-info-card">
+            <!--
+              .contact-info-icon is the red square icon holder.
+              The emoji inside is the icon.
+            -->
+            <div class="contact-info-icon">✉</div>
+            <div class="contact-info-text">
+              <!-- Small grey label above the value -->
+              <p class="contact-info-label">Email</p>
+              <!--
+                This is a mailto: link — clicking opens the user's email app
+                with the "To" field pre-filled with your address.
+              -->
+              <a href="mailto:harshdookhy9@gmail.com" class="contact-info-value">
+                harshdookhy9@gmail.com
+              </a>
+            </div>
+          </div>
+
+          <!-- PHONE CARD -->
+          <div class="contact-info-card">
+            <div class="contact-info-icon">📞</div>
+            <div class="contact-info-text">
+              <p class="contact-info-label">Phone</p>
+              <!--
+                tel: link — clicking opens the phone/call app on mobile.
+                The number in href has no spaces (international format).
+              -->
+              <a href="tel:+23057823966" class="contact-info-value">57823966</a>
+            </div>
+          </div>
+
+          <!-- LOCATION CARD — not a link, just text -->
+          <div class="contact-info-card">
+            <div class="contact-info-icon">📍</div>
+            <div class="contact-info-text">
+              <p class="contact-info-label">Location</p>
+              <p class="contact-info-value">Mauritius</p>
+            </div>
+          </div>
+
+        </div>
+        <!-- END LEFT COLUMN -->
+
+
+        <!-- =======================================
+          RIGHT COLUMN — Contact Form
+          Wrapped in a card for visual separation.
+
+          HOW THE FORM SUBMISSION WORKS (script.js):
+          1. User fills in name, email, message
+          2. User clicks "Send message"
+          3. The "submit" event fires on the <form>
+          4. JS runs: validates fields are not empty
+          5. If valid: hides the form, shows #formSuccess
+          6. If invalid: shows an alert
+
+          NOTE: This does NOT actually send an email.
+          It is a UI demonstration only.
+          To send real emails, integrate Formspree:
+          Change <form> to <form action="https://formspree.io/f/YOUR_ID" method="POST">
+          and remove the JS submit handler.
+        ======================================= -->
+        <div class="contact-form-card reveal">
+
+          <!--
+            The <form> has id="contactForm" so JS can find it.
+            We handle submission via JS, not a traditional form action.
+          -->
+          <form action="https://formspree.io/f/mqeneeqw" method="POST">
+            <!--
+              novalidate turns off the browser's built-in popup validation.
+              We handle validation ourselves in JS for better control.
+            -->
+
+            <!-- FIELD 1: Name -->
+            <div class="form-group">
+              <!--
+                <label for="name"> — the "for" attribute links this label
+                to the input with id="name". Clicking the label focuses
+                the input. Important for accessibility.
+              -->
+              <label for="name">Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Your name"
+                autocomplete="name"
+              />
+              <!--
+                type="text"     → accepts any text
+                id="name"       → links to the label's for="name"
+                name="name"     → used if you ever submit to a server
+                placeholder     → ghost text shown when empty
+                autocomplete    → hints browser to autofill if available
+              -->
+            </div>
+
+            <!-- FIELD 2: Email -->
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="you@example.com"
+                autocomplete="email"
+              />
+              <!--
+                type="email" → browser validates email format
+                               (must contain @ and a domain)
+              -->
+            </div>
+
+            <!-- FIELD 3: Message -->
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                placeholder="Tell me about your idea..."
+              ></textarea>
+              <!--
+                <textarea> is for multi-line text.
+                rows="5" sets the visible height (5 lines tall).
+                Unlike <input>, textarea has a closing tag.
+                Note: self-closing <textarea /> does NOT work — always use </textarea>
+              -->
+            </div>
+
+            <!-- SUBMIT BUTTON -->
+            <button type="submit" class="btn btn-primary btn-full">
+              ✈ Send message
+            </button>
+            <!--
+              type="submit" → triggers the form's "submit" event when clicked.
+              class="btn btn-primary" → uses the same red button style from index.html.
+              class="btn-full" → makes the button 100% width (added in style.css).
+            -->
+
+          </form>
+
+          <!--
+            SUCCESS MESSAGE — hidden by default (display: none in CSS).
+            JS shows this and hides the form after a successful submission.
+            id="formSuccess" is how JS targets it.
+          -->
+          <div id="formSuccess" class="form-success" style="display: none;">
+            <div class="form-success-icon">✓</div>
+            <h3>Message sent!</h3>
+            <p>Thanks for reaching out — I'll get back to you soon.</p>
+          </div>
+
+        </div>
+        <!-- END RIGHT COLUMN -->
+
+
+      </div>
+    </section>
+    <!-- END CONTACT LAYOUT -->
+
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <p class="footer-logo">Doorandharsingh<span class="logo-dot">.</span></p>
+        <p class="footer-tagline">Computer Science Student &amp; Aspiring Software Developer.</p>
+      </div>
+      <div class="footer-contact">
+        <p><span class="footer-icon">✉</span> harshdookhy9@gmail.com</p>
+        <p><span class="footer-icon">📞</span> 57823966</p>
+        <p><span class="footer-icon">📍</span> Mauritius</p>
+      </div>
+      <div class="footer-copy">
+        <p>© 2026 Doorandharsingh Dookhy.</p>
+        <p>Built with passion &amp; code.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+
+</body>
+</html>

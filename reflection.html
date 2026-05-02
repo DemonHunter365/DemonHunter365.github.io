@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  FILE: reflection.html
+  PAGE: Reflection
+  ============================================================
+
+  WHAT IS ON THIS PAGE:
+  1. Navbar
+  2. Page Header     — label "REFLECTION", heading, subtitle
+  3. Highlight Cards — 3 cards: key lessons from the year
+  4. Written Reflection — longer paragraphs of personal reflection
+  5. Looking Ahead   — forward-looking closing statement
+  6. Footer
+
+  CSS CLASSES USED:
+  - All shared classes from style.css (page-header, info-cards,
+    info-card, about-bio, reveal, fade-in, delay-N)
+  - .reflection-quote — a styled blockquote pull-quote
+  - .looking-ahead    — the closing forward-looking section
+  ============================================================
+-->
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reflection — Doorandharsingh Dookhy</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- NAVBAR — "Reflection" link is active -->
+  <header id="navbar">
+    <nav class="nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">&lt;/&gt;</span>
+        <span class="logo-text">Doorandharsingh<span class="logo-dot">.</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="semester1.html">Semester 1</a></li>
+        <li><a href="semester2.html">Semester 2</a></li>
+        <li><a href="reflection.html" class="active">Reflection</a></li> <!-- ← active here -->
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+
+  <main class="page-content">
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+      <p class="page-label fade-in delay-1">Reflection</p>
+      <h1 class="page-title fade-in delay-2">Lessons learned, growth, and what comes next.</h1>
+      <p class="page-subtitle fade-in delay-3">
+        Looking back on a year of building, breaking, and learning.
+      </p>
+    </section>
+
+
+    <!-- ---------------------------------------------------
+      KEY LESSONS — 3 highlight cards
+      Reusing the exact same .info-cards and .info-card
+      classes from about.html — no new CSS needed.
+    ---------------------------------------------------- -->
+    <section class="info-cards-section">
+      <div class="info-cards">
+
+        <div class="info-card reveal">
+          <div class="info-card-icon">💡</div>
+          <h3 class="info-card-title">Biggest Realisation</h3>
+          <p class="info-card-desc">
+            Programming is not about memorising syntax — it is about
+            learning to break problems into smaller pieces and trusting
+            the process of debugging.
+          </p>
+        </div>
+
+        <div class="info-card reveal">
+          <div class="info-card-icon">🔨</div>
+          <h3 class="info-card-title">Hardest Challenge</h3>
+          <p class="info-card-desc">
+            MARIE Assembly pushed me outside my comfort zone. Understanding
+            how a computer processes instructions at the register level
+            was difficult but deeply rewarding.
+          </p>
+        </div>
+
+        <div class="info-card reveal">
+          <div class="info-card-icon">🚀</div>
+          <h3 class="info-card-title">Most Proud Of</h3>
+          <p class="info-card-desc">
+            Building a fully functional Online Grocery System — seeing
+            HTML, CSS, JavaScript and SQL work together in one real
+            application felt like a genuine milestone.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ---------------------------------------------------
+      WRITTEN REFLECTION
+      Reusing .about-bio for the centred text column.
+      This keeps the same clean reading layout as the About page.
+    ---------------------------------------------------- -->
+    <section class="about-bio reveal">
+
+      <h2 class="about-bio-heading">Looking back on Year 1</h2>
+
+      <p>
+        When I started my BSc in Computer Science, I had curiosity but not
+        yet the tools to act on it effectively. The first semester forced me
+        to build those tools quickly — learning to read error messages instead
+        of panicking, to search documentation instead of guessing, and to
+        break a problem down before writing a single line of code.
+      </p>
+
+      <p>
+        Semester 1 felt like laying foundations. The scavenger hunt taught me
+        that working well in a team is a skill you have to practise, not something
+        that just happens. The MARIE Assembly project showed me that computers are
+        not magic — they are just very fast at following very precise instructions.
+        That shift in perspective changed how I think about every layer above it.
+      </p>
+
+      <p>
+        Semester 2 felt like actually building something. The Monte Carlo simulation
+        project was the most technically demanding thing I had done — combining
+        statistics, simulation logic, and data analysis. The Online Grocery System
+        was the most satisfying — it was the first time I could show someone
+        something and have them actually use it.
+      </p>
+
+      <!--
+        PULL QUOTE — a highlighted quote block.
+        <blockquote> is the correct semantic HTML tag for quotations.
+        .reflection-quote adds the red left border and larger text style.
+      -->
+      
+
+      <p>
+        The human side of technology surprised me most. The CRM role play and
+        team building activities were not what I expected from a Computer Science
+        course but they were some of the most useful sessions of the year.
+        Being able to communicate clearly about what you are building, and why,
+        turns out to matter as much as the code itself.
+      </p>
+
+      <p>
+        If I could do Year 1 again, I would start personal projects earlier.
+        Coursework teaches you the concepts, but building something for yourself
+        something with no rubric is where the real learning happens. That is
+        the habit I want to carry into Year 2.
+      </p>
+
+    </section>
+
+
+    <!-- ---------------------------------------------------
+      LOOKING AHEAD SECTION
+      A simple closing card with what comes next.
+      Uses its own .looking-ahead class for the container
+      and reuses .info-cards inside for the 3 goal chips.
+    ---------------------------------------------------- -->
+    <section class="looking-ahead reveal">
+
+      <div class="looking-ahead-inner">
+
+        <p class="page-label">What comes next</p>
+        <h2 class="looking-ahead-title">Year 2 Goals</h2>
+
+        <!--
+          Three goal cards — smaller, simpler than the info-cards above.
+          Reusing .info-cards grid but with 3 items focused on future goals.
+        -->
+        <div class="info-cards">
+
+          <div class="info-card">
+            <div class="info-card-icon">🌐</div>
+            <h3 class="info-card-title">Full-Stack Project</h3>
+            <p class="info-card-desc">
+              Build a complete web app from scratch — front end, back end,
+              and database — and deploy it publicly.
+            </p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-card-icon">📚</div>
+            <h3 class="info-card-title">Deepen Python</h3>
+            <p class="info-card-desc">
+              Move beyond scripts into data structures, algorithms,
+              and object-oriented design patterns.
+            </p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-card-icon">🤝</div>
+            <h3 class="info-card-title">Collaborate More</h3>
+            <p class="info-card-desc">
+              Contribute to a group project using version control (Git)
+              and practice working in a real development workflow.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+    <!-- END LOOKING AHEAD -->
+
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <p class="footer-logo">Harshil<span class="logo-dot">.</span></p>
+        <p class="footer-tagline">Computer Science Student &amp; Aspiring Software Developer.</p>
+      </div>
+      <div class="footer-contact">
+        <p><span class="footer-icon">✉</span> harshdookhy9@gmail.com</p>
+        <p><span class="footer-icon">📞</span> 57823966</p>
+        <p><span class="footer-icon">📍</span> Mauritius</p>
+      </div>
+      <div class="footer-copy">
+        <p>© 2026 Doorandharsingh Dookhy.</p>
+        <p>Built with passion &amp; code.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+
+</body>
+</html>

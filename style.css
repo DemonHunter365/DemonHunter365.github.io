@@ -1,0 +1,1630 @@
+/*
+  ============================================================
+  FILE: style.css
+  PURPOSE: All visual styling for Harshil's portfolio homepage.
+
+  TABLE OF CONTENTS
+  -----------------
+  1.  CSS VARIABLES (design tokens)
+  2.  RESET & BASE STYLES
+  3.  NAVIGATION BAR
+  4.  HAMBURGER MENU (mobile)
+  5.  HERO SECTION
+  6.  ANIMATED BACKGROUND BLOBS
+  7.  HERO CONTENT (badge, title, subtitle, bio)
+  8.  HERO BUTTONS
+  9.  CARDS SECTION
+  10. CARD COMPONENT
+  11. FOOTER
+  12. ANIMATION KEYFRAMES
+  13. SCROLL-REVEAL UTILITY CLASS
+  14. RESPONSIVE BREAKPOINTS (tablet & mobile)
+  ============================================================
+*/
+
+
+/* ============================================================
+   1. CSS VARIABLES — "Design Tokens"
+   
+   CSS variables (also called custom properties) store values
+   you reuse throughout the file. If you want to change the
+   red accent color, you only change ONE line here instead of
+   hunting through the whole file.
+
+   Usage: color: var(--accent);
+   ============================================================ */
+:root {
+  /* COLOR PALETTE */
+  --bg:           #0a0a0a;      /* Near-black page background */
+  --surface:      #141414;      /* Slightly lighter dark for cards */
+  --surface-2:    #1c1c1c;      /* Even lighter for card hover */
+  --border:       #2a2a2a;      /* Subtle dark border color */
+  --accent:       #e63030;      /* The main red used for highlights */
+  --accent-hover: #ff4444;      /* Brighter red for hover states */
+  --accent-glow:  rgba(230, 48, 48, 0.15); /* Transparent red for glows */
+  --text:         #f0f0f0;      /* Main body text (off-white) */
+  --text-muted:   #888888;      /* Secondary / dimmer text */
+  --white:        #ffffff;      /* Pure white */
+
+  /* TYPOGRAPHY */
+  --font-heading: 'Space Grotesk', sans-serif;  /* Used for titles */
+  --font-body:    'Inter', sans-serif;           /* Used for paragraphs */
+
+  /* SPACING SCALE
+     Using multiples of 4px creates visual consistency.
+     Instead of random pixel values, we pick from this scale. */
+  --space-xs:  4px;
+  --space-sm:  8px;
+  --space-md:  16px;
+  --space-lg:  32px;
+  --space-xl:  64px;
+  --space-2xl: 120px;
+
+  /* BORDER RADIUS */
+  --radius-sm:  6px;
+  --radius-md:  12px;
+  --radius-lg:  20px;
+  --radius-pill: 999px;   /* Makes elements fully rounded (pill shape) */
+
+  /* TRANSITIONS
+     Used for smooth hover effects. Timing functions:
+     - ease          → starts fast, ends slow (default)
+     - cubic-bezier  → custom S-curve for bouncy feel */
+  --transition: 0.3s ease;
+  --transition-bounce: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* NAVBAR HEIGHT — used to offset sections so they don't hide under the fixed nav */
+  --nav-height: 70px;
+}
+
+
+/* ============================================================
+   2. RESET & BASE STYLES
+   
+   Browsers apply their own default styles (margins, padding,
+   font sizes, etc.). A CSS reset clears these inconsistencies
+   so we start from a clean slate.
+   ============================================================ */
+
+/* 
+  box-sizing: border-box
+  By default, padding and border ADD to an element's width.
+  With border-box, padding and border are INCLUDED in the width.
+  This makes layout math much more intuitive.
+  
+  The * selector targets EVERY element.
+  The ::before and ::after targets pseudo-elements (decorative extras).
+*/
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;      /* Remove default browser margins */
+  padding: 0;     /* Remove default browser padding */
+}
+
+/* ROOT HTML ELEMENT
+   scroll-behavior: smooth → clicking anchor links (#section) scrolls
+   smoothly instead of jumping instantly. */
+html {
+  scroll-behavior: smooth;
+}
+
+/* BODY — the page container */
+body {
+  background-color: var(--bg);         /* Dark background */
+  color: var(--text);                  /* Default text color */
+  font-family: var(--font-body);       /* Inter for all text */
+  font-size: 16px;                     /* Base font size */
+  line-height: 1.6;                    /* Comfortable line spacing */
+  min-height: 100vh;                   /* At least full viewport height */
+  overflow-x: hidden;                  /* Prevent horizontal scroll */
+}
+
+/* LINKS — remove underline by default; we add our own styles per element */
+a {
+  text-decoration: none;
+  color: inherit;                      /* Inherit surrounding text color */
+}
+
+/* LISTS — remove bullets/numbers */
+ul, ol {
+  list-style: none;
+}
+
+/* HEADINGS — use our heading font */
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  line-height: 1.2;                    /* Tighter spacing for big headings */
+}
+
+
+/* ============================================================
+   3. NAVIGATION BAR
+   ============================================================ */
+
+/* 
+  The <header> is FIXED — it stays at the top even when scrolling.
+  z-index: 1000 keeps it above all other content.
+  
+  Initially it has no background (transparent over the hero).
+  JS adds class ".scrolled" to add a dark semi-transparent background
+  once the user scrolls past the hero.
+*/
+#navbar {
+  position: fixed;        /* Stays in place while scrolling */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;          /* Stack above everything else */
+  height: var(--nav-height);
+  transition: background var(--transition), backdrop-filter var(--transition);
+}
+
+/*
+  When JS adds class "scrolled", the navbar gets a dark blurry background.
+  backdrop-filter: blur() creates the frosted-glass effect.
+*/
+#navbar.scrolled {
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(12px);          /* Frosted glass blur */
+  border-bottom: 1px solid var(--border);
+}
+
+/* 
+  .nav-container is a flex row: logo left, links right.
+  max-width caps the content width on very wide screens.
+  margin: auto centers it.
+*/
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;   /* Logo on left, links on right */
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
+  padding: 0 var(--space-lg);       /* Horizontal padding */
+}
+
+/* LOGO LINK — flex row for icon + text side by side */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+/* The </> icon has a red color */
+.logo-icon {
+  color: var(--accent);
+  font-size: 1rem;
+}
+
+/* The period at the end of "Harshil." is red */
+.logo-dot {
+  color: var(--accent);
+}
+
+/* NAV LINKS — horizontal list on desktop */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);             /* Space between each link */
+}
+
+/* Individual nav link styles */
+.nav-links a {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  transition: color var(--transition);
+  position: relative;               /* Needed for the underline pseudo-element */
+}
+
+/* HOVER: turn link white */
+.nav-links a:hover {
+  color: var(--white);
+}
+
+/* ACTIVE (current page): turn red */
+.nav-links a.active {
+  color: var(--accent);
+}
+
+/*
+  Animated underline on hover:
+  ::after creates a pseudo-element (invisible extra element after the link).
+  We animate its width from 0% to 100% on hover, creating a sliding underline.
+*/
+.nav-links a::after {
+  content: '';                /* Required for pseudo-elements to show */
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;                 /* Start invisible (0 width) */
+  height: 2px;
+  background: var(--accent);
+  transition: width var(--transition);
+}
+
+/* On hover, expand the underline to full width */
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+
+/* ============================================================
+   4. HAMBURGER MENU (mobile only)
+   
+   The hamburger button is 3 stacked lines.
+   Hidden on desktop, shown on mobile via media query.
+   JS toggles class "open" to animate it into an X.
+   ============================================================ */
+.hamburger {
+  display: none;                  /* Hidden on desktop */
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: var(--space-xs);
+}
+
+/* Each horizontal line of the hamburger */
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--white);
+  border-radius: var(--radius-pill);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/*
+  When .open is added by JS, animate the 3 lines into an X:
+  - Line 1 rotates 45 degrees downward
+  - Line 2 fades out (middle line)
+  - Line 3 rotates -45 degrees upward
+  
+  nth-child() targets specific children:
+  :nth-child(1) = first <span> inside .hamburger
+*/
+.hamburger.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+
+/* ============================================================
+   5. HERO SECTION
+
+   The full-screen intro section.
+   position: relative so the blobs (position: absolute) are
+   positioned relative to this section, not the whole page.
+   ============================================================ */
+#hero {
+  position: relative;
+  min-height: 100vh;                /* At least full viewport height */
+  display: flex;
+  align-items: center;              /* Vertically center the content */
+  padding-top: var(--nav-height);   /* Don't hide behind the fixed navbar */
+  overflow: hidden;                 /* Clip the blobs that go outside */
+}
+
+
+/* ============================================================
+   6. ANIMATED BACKGROUND BLOBS
+   
+   Two large blurred circles that create the ambient red glow.
+   They are positioned absolutely behind the text.
+   filter: blur() makes them soft and diffuse.
+   ============================================================ */
+.blob {
+  position: absolute;
+  border-radius: 50%;               /* Perfect circle */
+  filter: blur(120px);              /* Heavy blur for soft glow */
+  opacity: 0.25;                    /* Semi-transparent so text is readable */
+  pointer-events: none;             /* Clicks pass through — not interactive */
+  animation: blobDrift 8s ease-in-out infinite alternate;
+}
+
+/* BLOB 1 — larger, upper-right area */
+.blob-1 {
+  width: 600px;
+  height: 600px;
+  background: var(--accent);        /* Red color */
+  top: -100px;
+  right: -100px;
+  animation-delay: 0s;
+}
+
+/* BLOB 2 — smaller, lower-left area, slightly different drift timing */
+.blob-2 {
+  width: 400px;
+  height: 400px;
+  background: #8b1a1a;              /* Darker red */
+  bottom: 100px;
+  left: -100px;
+  animation-delay: -4s;             /* Start halfway through the animation */
+}
+
+
+/* ============================================================
+   7. HERO CONTENT
+   ============================================================ */
+
+/* 
+  .hero-content sits on top of the blobs (z-index: 1).
+  max-width limits line length for readability.
+*/
+.hero-content {
+  position: relative;
+  z-index: 1;                       /* Above the blobs (which have no z-index = 0) */
+  max-width: 720px;
+  padding: var(--space-xl) var(--space-lg);
+}
+
+/* BADGE — the "✦ Available for collaboration" pill */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: rgba(255, 255, 255, 0.05);  /* Very subtle light tint */
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: 6px 16px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: var(--space-lg);
+}
+
+/* The star icon inside the badge */
+.badge-icon {
+  color: var(--accent);
+  font-size: 0.7rem;
+  /* Spin animation: rotates continuously */
+  animation: spin 4s linear infinite;
+}
+
+/* HERO TITLE — the "Harshil Dookhy" heading */
+.hero-title {
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  /*
+    clamp(min, preferred, max)
+    Font size grows with viewport width (7vw) but
+    never smaller than 2.5rem or bigger than 5.5rem.
+    This handles all screen sizes automatically!
+  */
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: var(--space-md);
+  letter-spacing: -0.02em;         /* Slightly tighter tracking for headings */
+}
+
+/* "Dookhy" in red */
+.highlight {
+  color: var(--accent);
+}
+
+/* SUBTITLE — "Computer Science Student..." */
+.hero-subtitle {
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: var(--text-muted);
+  margin-bottom: var(--space-md);
+  font-family: var(--font-heading);
+  font-weight: 400;
+}
+
+/* BIO PARAGRAPH */
+.hero-bio {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: var(--space-xl);
+  max-width: 580px;
+}
+
+
+/* ============================================================
+   8. HERO BUTTONS
+   ============================================================ */
+
+/* Button row — wraps to next line on small screens */
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;    /* Stack buttons on mobile instead of overflowing */
+  gap: var(--space-md);
+}
+
+/* BASE BUTTON STYLES — shared by all buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 14px 24px;
+  border-radius: var(--radius-pill);    /* Fully rounded = pill shape */
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: var(--font-heading);
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: transform var(--transition-bounce),
+              background var(--transition),
+              box-shadow var(--transition);
+}
+
+/* HOVER effect: slightly lift the button */
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+/* PRIMARY BUTTON — red filled */
+.btn-primary {
+  background: var(--accent);
+  color: var(--white);
+  border-color: var(--accent);
+}
+
+/* Primary hover: brighter red + glow shadow */
+.btn-primary:hover {
+  background: var(--accent-hover);
+  box-shadow: 0 8px 25px rgba(230, 48, 48, 0.4);
+}
+
+/* SECONDARY BUTTON — dark with border */
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--white);
+  border-color: var(--border);
+}
+
+/* Secondary hover: slightly brighter background + white border */
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Arrow in buttons — gets a subtle slide-right on hover */
+.btn-arrow {
+  transition: transform var(--transition);
+}
+
+.btn:hover .btn-arrow {
+  transform: translateX(4px);       /* Slides right 4px on hover */
+}
+
+
+/* ============================================================
+   9. CARDS SECTION
+   ============================================================ */
+#cards {
+  padding: var(--space-xl) var(--space-lg);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* 
+  CSS GRID with 3 equal columns.
+  gap adds spacing between each card.
+  On smaller screens (see media queries below), this
+  switches to 1 or 2 columns.
+*/
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+}
+
+
+/* ============================================================
+   10. CARD COMPONENT
+   ============================================================ */
+
+/* BASE CARD */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  /* Smooth transitions for hover effects */
+  transition: transform var(--transition),
+              border-color var(--transition),
+              background var(--transition),
+              box-shadow var(--transition);
+  cursor: pointer;
+}
+
+/* CARD HOVER — lift it up and glow the border */
+.card:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+  background: var(--surface-2);
+  box-shadow: 0 12px 40px rgba(230, 48, 48, 0.15);  /* Soft red glow */
+}
+
+/* 
+  CARD ICON — the red </> badge
+  Uses a radial gradient background for a subtle glow behind it.
+*/
+.card-icon {
+  width: 44px;
+  height: 44px;
+  background: radial-gradient(circle, rgba(230, 48, 48, 0.25) 0%, transparent 70%);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-md);
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* CARD TITLE */
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: var(--space-sm);
+}
+
+/* CARD DESCRIPTION */
+.card-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: var(--space-lg);
+}
+
+/* "Explore →" link in red, turns brighter on hover */
+.card-link {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  font-family: var(--font-heading);
+  transition: color var(--transition), letter-spacing var(--transition);
+}
+
+.card-link:hover {
+  color: var(--accent-hover);
+  letter-spacing: 0.05em;           /* Subtle spacing increase on hover */
+}
+
+
+/* ============================================================
+   11. FOOTER
+   ============================================================ */
+#footer {
+  border-top: 1px solid var(--border);
+  padding: var(--space-xl) var(--space-lg);
+  margin-top: var(--space-xl);
+}
+
+/* Three-column layout using flexbox */
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;                  /* Wrap to next line on small screens */
+  gap: var(--space-xl);
+}
+
+/* Footer logo text */
+.footer-logo {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: var(--space-sm);
+}
+
+/* Footer tagline under logo */
+.footer-tagline {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  max-width: 240px;
+  line-height: 1.6;
+}
+
+/* Footer contact details */
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+/* Each contact line */
+.footer-contact p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+/* Icon in each contact line */
+.footer-icon {
+  font-size: 0.8rem;
+  color: var(--accent);
+}
+
+/* Copyright column */
+.footer-copy {
+  text-align: right;
+}
+
+.footer-copy p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+
+/* ============================================================
+   12. ANIMATION KEYFRAMES
+   
+   @keyframes define named animations that can be applied
+   to elements using the `animation` property.
+   ============================================================ */
+
+/*
+  FADE IN — elements start transparent and 30px below,
+  then animate to fully visible at their normal position.
+  Used for hero content (badge, title, bio, buttons).
+*/
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);    /* Start 30px below */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);       /* End at normal position */
+  }
+}
+
+/*
+  BLOB DRIFT — the background blobs slowly float around.
+  alternate in the animation property makes them reverse
+  direction, creating a breathing/floating effect.
+*/
+@keyframes blobDrift {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(30px, -30px) scale(1.05);
+  }
+}
+
+/*
+  SPIN — used for the star icon in the badge.
+  Rotates continuously 360 degrees.
+*/
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+
+/* ============================================================
+   13. SCROLL-REVEAL UTILITY CLASSES
+   
+   Elements with class "reveal" start invisible and off-screen.
+   JavaScript (Intersection Observer) adds class "visible"
+   when the element enters the viewport, triggering the animation.
+
+   This creates the "elements animate in when you scroll to them" effect.
+   ============================================================ */
+
+/* Start state: invisible and 40px below */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+/* End state: fully visible at normal position */
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/*
+  STAGGER: each card gets a slightly longer delay so they
+  animate in one after another, not all at once.
+  nth-child() selects the Nth element inside a parent.
+*/
+.cards-grid .card:nth-child(2).visible {
+  transition-delay: 0.15s;
+}
+.cards-grid .card:nth-child(3).visible {
+  transition-delay: 0.3s;
+}
+
+
+/* ============================================================
+   14. FADE-IN CLASSES FOR HERO
+   
+   Applied directly in HTML — these elements animate on page load.
+   Each .delay-N class adds a longer animation-delay so they
+   appear one after another.
+   ============================================================ */
+
+/* All hero elements start invisible */
+.fade-in {
+  opacity: 0;
+  animation: fadeInUp 0.8s ease forwards;
+  /* 
+    forwards = keep the final state (opacity: 1) after animation ends.
+    Without this, the element would snap back to invisible!
+  */
+}
+
+/* Staggered delays — each class delays a bit more */
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.3s; }
+.delay-3 { animation-delay: 0.5s; }
+.delay-4 { animation-delay: 0.7s; }
+.delay-5 { animation-delay: 0.9s; }
+
+
+/* ============================================================
+   RESPONSIVE BREAKPOINTS
+   
+   @media queries apply styles ONLY when the screen is at or
+   below a certain width. We use two breakpoints:
+   
+   - 900px  → tablet (2-column grid)
+   - 600px  → mobile phone (1-column, hamburger menu, etc.)
+   ============================================================ */
+
+/* TABLET — screens up to 900px wide */
+@media (max-width: 900px) {
+
+  /* Switch 3 columns to 2 columns for cards */
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Reduce top section spacing */
+  .hero-content {
+    padding: var(--space-lg);
+  }
+}
+
+
+/* MOBILE — screens up to 600px wide */
+@media (max-width: 600px) {
+
+  /* SHOW the hamburger button on mobile */
+  .hamburger {
+    display: flex;
+  }
+
+  /* 
+    MOBILE NAVIGATION MENU
+    Hide the nav links by default on mobile.
+    When JS adds class "open", we'll show it (see below).
+
+    Position it absolutely below the navbar.
+    Full width. Stacked vertically (flex-direction: column).
+  */
+  .nav-links {
+    display: none;                /* Hidden by default */
+    flex-direction: column;
+    position: absolute;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    background: rgba(10, 10, 10, 0.97);
+    backdrop-filter: blur(12px);
+    padding: var(--space-lg);
+    gap: var(--space-lg);
+    border-bottom: 1px solid var(--border);
+    z-index: 999;
+  }
+
+  /* When JS adds class "open" to the <ul>, show the mobile menu */
+  .nav-links.open {
+    display: flex;
+  }
+
+  /* 1 column for cards on mobile */
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Stack footer columns vertically */
+  .footer-container {
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  /* Left-align footer copyright on mobile */
+  .footer-copy {
+    text-align: left;
+  }
+
+  /* Make hero buttons stack vertically on very small screens */
+  .hero-buttons {
+    flex-direction: column;
+  }
+
+  /* Full-width buttons on mobile */
+  .btn {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+
+/* ============================================================
+   *** NEW STYLES FOR INNER PAGES ***
+   Everything below this line is used by about.html,
+   skills.html, semester1.html, semester2.html,
+   reflection.html, and contact.html.
+   ============================================================ */
+
+
+/* ============================================================
+   PAGE CONTENT WRAPPER
+   Every inner page <main> has class="page-content".
+   padding-top pushes the content down so nothing hides
+   behind the fixed navbar (which is 70px tall).
+   ============================================================ */
+.page-content {
+  padding-top: var(--nav-height);  /* 70px — matches navbar height */
+  min-height: 100vh;               /* Page fills at least the full screen */
+}
+
+
+/* ============================================================
+   PAGE HEADER
+   The top section of every inner page.
+   Contains: red label + big title + subtitle.
+   Used by: About, Skills, Semester 1, Semester 2, Reflection, Contact
+   ============================================================ */
+.page-header {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-xl) var(--space-lg);
+}
+
+/* Small red uppercase label above the title e.g. "ABOUT ME" */
+.page-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;        /* Wide letter spacing for uppercase labels */
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--space-sm);
+}
+
+/* The big page heading */
+.page-title {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  /*
+    clamp(min, preferred, max):
+    - Never smaller than 1.8rem
+    - Scales with viewport (4vw)
+    - Never bigger than 3rem
+  */
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: var(--space-sm);
+  max-width: 700px;             /* Limit width so long titles don't stretch too wide */
+}
+
+/* The grey subtitle line below the title */
+.page-subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  line-height: 1.7;
+}
+
+
+/* ============================================================
+   INFO CARDS — 3-column grid
+   Used by: About page (Education, Career Goals, Passion)
+            Reflection page (Key Lessons, Looking Ahead)
+   ============================================================ */
+.info-cards-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-xl) var(--space-xl);
+}
+
+/* The 3-column grid container */
+.info-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);  /* 3 equal columns */
+  gap: var(--space-lg);
+}
+
+/* Individual info card */
+.info-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+/* Hover: red border + slight lift */
+.info-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+}
+
+/* The emoji icon at the top of each card */
+.info-card-icon {
+  font-size: 1.5rem;
+  margin-bottom: var(--space-md);
+  /* No special CSS needed — emoji renders naturally */
+}
+
+/* Card title e.g. "Education" */
+.info-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: var(--space-sm);
+}
+
+/* Card description text */
+.info-card-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+
+/* ============================================================
+   ABOUT BIO — centred text column
+   Used by: About page (My Background section)
+            Reflection page (Written Reflection section)
+   ============================================================ */
+.about-bio {
+  max-width: 680px;       /* Narrower than the cards — better reading width */
+  margin: 0 auto;
+  padding: 0 var(--space-xl) var(--space-xl);
+}
+
+/* Section heading e.g. "My background" */
+.about-bio-heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: var(--space-lg);
+}
+
+/* Each paragraph in the bio */
+.about-bio p {
+  color: var(--text-muted);
+  line-height: 1.85;             /* Generous line height for long reading */
+  margin-bottom: var(--space-md);
+}
+
+/*
+  PULL QUOTE — <blockquote class="reflection-quote">
+  A highlighted quote that stands out from the body text.
+  border-left: the red vertical line on the left side.
+*/
+.reflection-quote {
+  border-left: 3px solid var(--accent);
+  padding-left: var(--space-lg);
+  margin: var(--space-lg) 0;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--text);             /* Brighter than muted text */
+  line-height: 1.7;
+}
+
+
+/* ============================================================
+   LOOKING AHEAD — Reflection page closing section
+   ============================================================ */
+.looking-ahead {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-xl) var(--space-2xl);
+}
+
+.looking-ahead-inner {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+}
+
+/* Heading inside looking-ahead card */
+.looking-ahead-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: var(--space-lg);
+}
+
+/* 
+  The .info-cards grid inside .looking-ahead-inner inherits
+  all styles from above — no new CSS needed for the 3 goal cards.
+*/
+
+
+/* ============================================================
+   SKILLS PAGE LAYOUT
+   2-column grid: large left card, stacked right cards
+   ============================================================ */
+.skills-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-xl) var(--space-2xl);
+}
+
+/* The 2-column grid */
+.skills-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  /*
+    1.2fr 1fr means:
+    - Left column gets 1.2 fractions of space
+    - Right column gets 1 fraction
+    So left is slightly wider than right.
+  */
+  gap: var(--space-lg);
+  align-items: start;            /* Cards don't stretch to match each other's height */
+}
+
+/* Right column: stacks the 3 smaller cards vertically */
+.skills-right {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* Individual skill card (large left card + smaller right cards) */
+.skill-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+}
+
+/* Card header row: icon + title side by side */
+.skill-card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+/* The emoji icon */
+.skill-card-icon {
+  font-size: 1.2rem;
+  color: var(--accent);
+}
+
+/* Card title e.g. "Technical Skills" */
+.skill-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--white);
+}
+
+/* Small note under the title */
+.skill-card-note {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: var(--space-lg);
+}
+
+/* One skill row: name + percentage + bar */
+.skill-item {
+  margin-bottom: var(--space-md);
+}
+
+/* Row above the bar: name on left, % on right */
+.skill-header {
+  display: flex;
+  justify-content: space-between;  /* Name pushes left, % pushes right */
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+/* Skill name e.g. "HTML" */
+.skill-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* Percentage label e.g. "65%" */
+.skill-percent {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/*
+  THE PROGRESS BAR TRACK
+  The grey background track the red fill sits inside.
+  overflow: hidden clips the red fill so it doesn't
+  spill outside the rounded corners.
+*/
+.skill-bar {
+  background: var(--border);
+  border-radius: var(--radius-pill);
+  height: 6px;
+  overflow: hidden;
+}
+
+/*
+  THE RED FILL
+  Starts at width: 0% (invisible).
+  When JS adds class "animated", CSS transitions it to --target-width.
+  --target-width is set directly in the HTML via style="--target-width: 65%".
+
+  transition: width 1.2s ease
+  → the fill smoothly grows over 1.2 seconds.
+*/
+.skill-fill {
+  height: 100%;
+  width: 0%;                           /* Start invisible */
+  background: var(--accent);
+  border-radius: var(--radius-pill);
+  transition: width 1.2s ease;
+}
+
+/* When JS adds this class, animate to the target width */
+.skill-fill.animated {
+  width: var(--target-width);          /* Uses the CSS variable set in HTML */
+}
+
+
+/* ============================================================
+   TAGS — pill-shaped chips for technologies, skills, tools
+   Used by: Skills page, Semester 1, Semester 2
+   ============================================================ */
+
+/* Container that wraps the tag chips — flex with wrapping */
+.tags {
+  display: flex;
+  flex-wrap: wrap;                     /* Chips wrap to next line if too many */
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+
+/* Individual tag chip */
+.tag {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: 4px 14px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  transition: border-color var(--transition), color var(--transition);
+}
+
+/* Hover: tag gets a red border and white text */
+.tag:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+/* Certification card — title and institution */
+.cert-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-top: var(--space-sm);
+  margin-bottom: 4px;
+}
+
+.cert-sub {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+
+/* ============================================================
+   PROJECT CARDS — Semester 1 & 2
+   ============================================================ */
+.projects-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-xl) var(--space-2xl);
+}
+
+/* 2-column grid for project cards */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-lg);
+}
+
+/*
+  WIDE CARD — spans both columns.
+  Used for the 5th card on Semester 2 so it fills the row.
+  grid-column: 1 / -1 means "start at column 1, end at the last column".
+*/
+.project-card--wide {
+  grid-column: 1 / -1;
+}
+
+/* Individual project card */
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  transition: border-color var(--transition), transform var(--transition);
+  display: flex;
+  flex-direction: column;             /* Stack children vertically */
+}
+
+/* Hover: red border + lift */
+.project-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+}
+
+/* Header row: icon + title side by side */
+.project-card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+/* The emoji icon */
+.project-icon {
+  font-size: 1.3rem;
+  color: var(--accent);
+  flex-shrink: 0;                     /* Don't shrink if title is long */
+}
+
+/* Project title */
+.project-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--white);
+  line-height: 1.3;
+}
+
+/* Description paragraph */
+.project-desc {
+  font-size: 0.87rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: var(--space-md);
+  flex: 1;                            /* Takes up remaining space — pushes demo to bottom */
+}
+
+/*
+  SECTION LABELS — "TECHNOLOGIES", "SKILLS GAINED", "DEMO"
+  These are the small red uppercase labels inside each card.
+*/
+.project-section-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-top: var(--space-md);
+  margin-bottom: 6px;
+}
+
+/* Demo area at the bottom of a card */
+.demo-section {
+  margin-top: auto;                   /* Pushes to the bottom of the card */
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--border);
+}
+
+/* Demo link — red text, underlines on hover */
+.demo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent);
+  font-family: var(--font-heading);
+  transition: color var(--transition), gap var(--transition);
+}
+
+.demo-link:hover {
+  color: var(--accent-hover);
+  gap: 10px;                          /* Arrow slides right slightly on hover */
+}
+
+/* Demo link styled as a filled red button */
+.demo-link-btn {
+  background: var(--accent);
+  color: var(--white);
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  margin-top: var(--space-sm);
+  transition: background var(--transition), transform var(--transition);
+}
+
+.demo-link-btn:hover {
+  background: var(--accent-hover);
+  color: var(--white);
+  transform: translateY(-2px);
+  gap: 6px;
+}
+
+
+/* ============================================================
+   CONTACT PAGE
+   ============================================================ */
+.contact-section {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 var(--space-xl) var(--space-2xl);
+}
+
+/* 2-column layout: info left, form right */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  /*
+    The form column (right) is slightly wider than the info column (left).
+    1fr vs 1.4fr gives roughly 42% / 58% split.
+  */
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+/* Left column — stacks the 3 info cards vertically */
+.contact-info-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* Individual info card (email, phone, location) */
+.contact-info-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  transition: border-color var(--transition);
+}
+
+.contact-info-card:hover {
+  border-color: var(--accent);
+}
+
+/* The red square icon holder */
+.contact-info-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(230, 48, 48, 0.12);  /* Very faint red background */
+  color: var(--accent);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+/* Text block to the right of the icon */
+.contact-info-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Small grey label e.g. "EMAIL" */
+.contact-info-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* The actual value e.g. "harshdookhy9@gmail.com" */
+.contact-info-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  transition: color var(--transition);
+}
+
+/* If it's a link (<a>), make it turn red on hover */
+a.contact-info-value:hover {
+  color: var(--accent);
+}
+
+
+/* FORM CARD — wraps the right column */
+.contact-form-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+}
+
+/*
+  FORM GROUP — wrapper for each label + input pair.
+  margin-bottom separates each field from the next.
+*/
+.form-group {
+  margin-bottom: var(--space-md);
+}
+
+/* Label above each input field */
+.form-group label {
+  display: block;                      /* Makes label sit on its own line */
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+/* Shared styles for input and textarea */
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  background: var(--bg);               /* Darker than the card background */
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px var(--space-md);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  outline: none;                       /* Remove browser default blue outline */
+  transition: border-color var(--transition);
+}
+
+/* When user clicks into a field — red border appears */
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--accent);
+}
+
+/* Textarea-specific: allow vertical resize only, set min height */
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+}
+
+/* Full-width button — makes the submit button span the full card width */
+.btn-full {
+  width: 100%;
+  justify-content: center;
+}
+
+
+/* ============================================================
+   FORM SUCCESS MESSAGE
+   Hidden by default (style="display: none" in HTML).
+   JS removes that and shows this block after submission.
+   ============================================================ */
+.form-success {
+  text-align: center;
+  padding: var(--space-xl) var(--space-lg);
+}
+
+/* The green checkmark circle */
+.form-success-icon {
+  width: 56px;
+  height: 56px;
+  background: rgba(63, 185, 80, 0.15);  /* Light green */
+  color: #3fb950;                         /* Green text */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 auto var(--space-md);
+}
+
+.form-success h3 {
+  font-size: 1.2rem;
+  color: var(--white);
+  margin-bottom: var(--space-sm);
+}
+
+.form-success p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+
+/* ============================================================
+   RESPONSIVE — NEW PAGE COMPONENTS
+   Adjustments for tablet (900px) and mobile (600px)
+   ============================================================ */
+
+@media (max-width: 900px) {
+
+  /* Page header: less padding on tablet */
+  .page-header {
+    padding: var(--space-lg) var(--space-lg) var(--space-md);
+  }
+
+  /* Info cards: switch from 3 columns to 1 column */
+  .info-cards {
+    grid-template-columns: 1fr;
+  }
+  .info-cards-section {
+    padding: 0 var(--space-lg) var(--space-lg);
+  }
+
+  /* About bio: reduce padding */
+  .about-bio {
+    padding: 0 var(--space-lg) var(--space-lg);
+  }
+
+  /* Skills: switch to single column */
+  .skills-layout {
+    grid-template-columns: 1fr;
+  }
+  .skills-section {
+    padding: 0 var(--space-lg) var(--space-lg);
+  }
+
+  /* Projects: switch to single column */
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+  /* Wide card: no longer needs to span 2 cols (only 1 col now) */
+  .project-card--wide {
+    grid-column: auto;
+  }
+  .projects-section {
+    padding: 0 var(--space-lg) var(--space-lg);
+  }
+
+  /* Contact: stack columns vertically */
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+  .contact-section {
+    padding: 0 var(--space-lg) var(--space-lg);
+  }
+
+  /* Looking ahead: reduce padding */
+  .looking-ahead {
+    padding: 0 var(--space-lg) var(--space-lg);
+  }
+}
+
+@media (max-width: 600px) {
+
+  /* Even less padding on phones */
+  .page-header {
+    padding: var(--space-lg) var(--space-md) var(--space-md);
+  }
+
+  .info-cards-section,
+  .about-bio,
+  .skills-section,
+  .projects-section,
+  .contact-section,
+  .looking-ahead {
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+  }
+}
