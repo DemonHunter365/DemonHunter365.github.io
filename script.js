@@ -1,4 +1,5 @@
-/*
+
+  /*
   ============================================================
   FILE: script.js
   PURPOSE: All interactivity for Harshil's portfolio homepage.
